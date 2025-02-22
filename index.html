@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Warning</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* ===== Background Images ===== */
+        /* For the popup (first page) */
+        .hacked-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0bqfJ3JOotrf_wgUYc7kSqIY1MvuHKAD4ow&s'); /* Add your image URL */
+            background-size: cover;
+            background-position: center;
+            color: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            animation: flash 0.5s infinite;
+        }
+
+        /* For the second page */
+        .hacked-image {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScUacq4TWAJHDdDLWfjghhTyxwHk2R8MeNNw&s'); /* Add your image URL */
+            background-size: cover;
+            background-position: center;
+            color: red;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 3px solid red;
+            overflow: auto;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* ===== Rest of the Styles ===== */
+        .popup-content {
+            padding: 20px;
+            border: 3px solid red;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+            backdrop-filter: blur(5px); /* Optional: Adds blur effect */
+        }
+
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        body {
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .hacked-image img {
+            max-width: 90%;
+            height: auto;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Popup (First Page) -->
+    <div class="hacked-popup" id="popup">
+        <div class="popup-content">
+            <h1>⚠️ SYSTEM BREACHED ⚠️</h1>
+            <p>Your phone has been hacked by 69.69.69!</p>
+            <p>All data is being copied...</p>
+            <div style="width: 200px; height: 10px; background: #444; margin: 10px auto;">
+                <div id="progress" style="width: 0%; height: 100%; background: red;"></div>
+            </div>
+            <button onclick="closePopup()" 
+                    style="background: red; color: white; border: none; padding: 10px; cursor: pointer;">
+                STOP HACKING
+            </button>
+        </div>
+    </div>
+
+    <!-- Second Page -->
+    <div class="hacked-image">
+        <img src="data:image/jpeg;base64,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" alt="Hacked Message">
+        <h1>YOUR PHONE IS IN MY CONTROL!</h1>
+        <p style="color: gray; font-size: 20px;">FUCK YOUR ASS</p>
+        <h1>MOTHERFUCKER</h1>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let progress = 0;
+            const progressBar = document.getElementById('progress');
+            const interval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = progress + '%';
+                if (progress >= 100) clearInterval(interval);
+            }, 50);
+        });
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.querySelector('.hacked-image').style.display = 'flex';
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
